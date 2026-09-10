@@ -15,6 +15,9 @@ public class ContaService {
     }
 
     public Conta criarConta(Usuario usuario, double saldoInicial) {
+        if (usuario == null){
+            throw new DadoInvalidoException("O usuário não pode ser nulo.");
+        }
         if (saldoInicial < 0) {
             throw new DadoInvalidoException("O saldo inicial não pode ser negativo.");
         }

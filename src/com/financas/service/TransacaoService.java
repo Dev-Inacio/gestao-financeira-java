@@ -31,6 +31,9 @@ public class TransacaoService {
         if (categoria == null || categoria.trim().isEmpty()) {
             throw new DadoInvalidoException("A categoria nao pode ser vazia.");
         }
+        if (descricao == null || descricao.trim().isEmpty()){
+            throw new DadoInvalidoException("A descricao nao pode ser vazia.");
+        }
         if (conta == null) {
             throw new ContaNaoEncontradaException("A Conta Não Foi Encontrada.");
         }
@@ -51,9 +54,12 @@ public class TransacaoService {
         return transacaoDao.listarPorConta(contaId);
     }
 
-    public Transacao atualizar(Transacao transacao) {
+    public Transacao atualizar(Transacao transacao, Conta contaLogada) {
         if (transacao == null) {
             throw new TransacaoNaoEncontradaException("Transação Não Encontrada.");
+        }
+        if (transacao.getConta().getId() != contaLogada.getId()){
+            throw new TransacaoNaoEncontradaException("Transacao nao pertence a esta conta.");
         }
         if (transacao.getValor() <= 0) {
             throw new DadoInvalidoException("O valor da transacao deve ser maior que zero.");
@@ -64,10 +70,13 @@ public class TransacaoService {
         return transacaoDao.atualizar(transacao);
     }
 
-    public void deletar(int transacaoId) {
+    public void deletar(int transacaoId, Conta contaLogada) {
         Transacao transacaoEncontrada = transacaoDao.buscarPorId(transacaoId);
         if (transacaoEncontrada == null) {
             throw new TransacaoNaoEncontradaException("Transacao nao encontrada.");
+        }
+        if (transacaoEncontrada.getConta().getId() != contaLogada.getId()){
+            throw new TransacaoNaoEncontradaException("Transacao nao pertence a esta conta.");
         }
 
         if (transacaoEncontrada.getTipo() == TipoTransacao.RECEITA){

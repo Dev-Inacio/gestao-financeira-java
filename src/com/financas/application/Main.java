@@ -51,7 +51,10 @@ public class Main {
                         break;
 
                     case "0":
+                        break;
                     default:
+                        System.out.print("Opção inválida.");
+                        break;
                 }
             } catch (RuntimeException exception) {
                 System.out.print("Error: " + exception.getMessage());
@@ -95,8 +98,12 @@ public class Main {
 
                     case "3":
                         List<Transacao> listaDeTransacoes = transacaoService.listarPorConta(conta.getId());
-                        for (Transacao transacao : listaDeTransacoes) {
-                            System.out.println(transacao);
+                        if (listaDeTransacoes.isEmpty()) {
+                            System.out.print("Nenhuma transação encontrada.");
+                        } else {
+                            for (Transacao transacao : listaDeTransacoes) {
+                                System.out.println(transacao);
+                            }
                         }
                         break;
 
@@ -119,13 +126,18 @@ public class Main {
                         transacaoEcontrada.setValor(valor);
                         transacaoEcontrada.setDescricao(descricao);
 
-                        transacaoService.atualizar(transacaoEcontrada);
+                        transacaoService.atualizar(transacaoEcontrada, conta);
                         break;
 
                     case "5":
                         System.out.print("Digite O Id Da transação: ");
                         int idTransacaoDeletar = Integer.parseInt(scanner.nextLine());
-                        transacaoService.deletar(idTransacaoDeletar);
+                        transacaoService.deletar(idTransacaoDeletar, conta);
+                        break;
+                    case "0":
+                        break;
+                    default:
+                        System.out.print("Opção inválida.");
                         break;
                 }
             } catch (RuntimeException exception) {
