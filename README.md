@@ -12,7 +12,7 @@ CRUD em Java puro (sem frameworks) para controle financeiro pessoal, via console
 Java • JDBC • MySQL
 
 ## Como rodar
-1. Crie o banco `gestao_financeira` (script em `/sql`)
+1. Crie o banco `gestao_financeira`
 2. Renomeie `db.properties.example` para `db.properties` e preencha suas credenciais
 3. Execute `Main.java`
 
