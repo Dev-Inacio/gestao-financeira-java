@@ -74,14 +74,6 @@ public class Transacao {
 
     @Override
     public String toString() {
-        return  "-------------------------------------" +
-                "\n|   Listas Das Transações\n" +
-                "\n|ID = " + id +
-                "\n|Tipo = " + tipo +
-                "\n|Categoria = " + categoria +
-                "\n|Valor = " + String.format("%.2f", valor) +
-                "\n|Data = " + data +
-                "\n|Descricao = " + descricao +
-                "\n-------------------------------------";
+        return String.format("%-5d %-10s %-20s R$%10.2f   %s",id, tipo, categoria, valor, data);
     }
 }
